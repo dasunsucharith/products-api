@@ -292,7 +292,7 @@ app.post("/api/customer/", (req, res, next) => {
             errors.push("An invalid input");
         }
 
-        const { customerName,
+        const { name,
             address,
             email,
             dateOfBirth,
@@ -302,11 +302,11 @@ app.post("/api/customer/", (req, res, next) => {
             cardNumber,
             expirytDate,
             cvv,
-            timestamp
+            timeStamp
         } = req.body;
 
-        var sql = 'INSERT INTO customer (customerName, address, email, dateOfBirth, gender, age, cardHolderName, cardNumber, expirytDate, cvv, timeStamp) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
-        var params = [customerName, address, email, dateOfBirth, gender, age, cardHolderName, cardNumber, expirytDate, cvv, timestamp]
+        var sql = 'INSERT INTO customer (name, address, email, dateOfBirth, gender, age, cardHolderName, cardNumber, expirytDate, cvv, timeStamp) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
+        var params = [name, address, email, dateOfBirth, gender, age, cardHolderName, cardNumber, expirytDate, cvv, timeStamp]
         db.run(sql, params, function (err, result) {
 
             if (err) {
@@ -314,7 +314,7 @@ app.post("/api/customer/", (req, res, next) => {
                 return;
             } else {
                 res.json({
-                    "message": "customer " . req.body.customerName ,
+                    "message": "customer " . req.body.name ,
                     "data": req.body,
                     "customerId": this.lastID
                 })
