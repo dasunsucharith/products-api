@@ -314,8 +314,7 @@ app.post("/api/customer/", (req, res, next) => {
                 return;
             } else {
                 res.json({
-                    "message": "customer " . req.body.name ,
-                    "data": req.body,
+                    "message": req.body.name,
                     "customerId": this.lastID
                 })
             }
