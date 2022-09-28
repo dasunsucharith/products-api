@@ -283,6 +283,48 @@ app.delete("/api/suppliers/deleteAll/:id", (req, res, next) => {
     }
 });
 
+app.post("/api/customer/", (req, res, next) => {
+
+    try {
+        var errors = []
+
+        if (!req.body) {
+            errors.push("An invalid input");
+        }
+
+        const { customerName,
+            address,
+            email,
+            dateOfBirth,
+            gender,
+            age,
+            cardHolderName,
+            cardNumber,
+            expirytDate,
+            cvv,
+            timestamp
+        } = req.body;
+
+        var sql = 'INSERT INTO customer (customerName, address, email, dateOfBirth, gender, age, cardHolderName, cardNumber, expirytDate, cvv, timeStamp) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
+        var params = [customerName, address, email, dateOfBirth, gender, age, cardHolderName, cardNumber, expirytDate, cvv, timestamp]
+        db.run(sql, params, function (err, result) {
+
+            if (err) {
+                res.status(400).json({ "error": err.message })
+                return;
+            } else {
+                res.json({
+                    "message": "customer " . req.body.customerName ,
+                    "data": req.body,
+                    "customerId": this.lastID
+                })
+            }
+
+        });
+    } catch (E) {
+        res.status(400).send(E);
+    }
+});
 
 // Root path
 app.get("/", (req, res, next) => {
